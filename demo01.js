@@ -29,7 +29,7 @@ function filterChapters(html) {
     var courseData = []
     chapters.each(function(item) {
         var chapter = $(this)
-        var chapterTitle = chapter.find('h3').text().replace(/\s/g, "")
+        var chapterTitle = chapter.find('h3').text().replace(/\s/g, "")  //\s表示任何空白符号，g表示全局替换，不然搜索到第一个空白即停止搜索
         var videos = chapter.find('.video').children('li')
         var chapterData = {
             chapterTitle: chapterTitle,
@@ -38,6 +38,8 @@ function filterChapters(html) {
         videos.each(function(item) {
             var video  = $(this).find('.J-media-item')
             var videoTitle = video.text().replace(/\n/g, "").replace(/\s/g, "");
+            console.log("000----" + video.text());
+            console.log("111---"+ video.text().replace(/\n/g, "").replace(/\s/g, ""));   //去掉所有的换行和空白符号
             var id = video.attr('href').split('video/')[1];
             var url = `http://www.imooc.com/video/${id}`
             chapterData.videos.push({
@@ -48,7 +50,7 @@ function filterChapters(html) {
         })
         courseData.push(chapterData)
     })
-    console.log(courseData);
+    //console.log(courseData);
     return courseData
 }
 
